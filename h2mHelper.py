@@ -105,7 +105,6 @@ class hargassner():
 
         return current_sensor, False
 
-
 class sensor():
     def __init__(self, parent_system, sensor_id, name) -> None:
         self.sensor_id = sensor_id
@@ -136,7 +135,7 @@ class measurement():
         self.component = self.__get_component()
         self.parent_sensor = parent_sensor
         self.topic = f"{HA_PREFIX}/{self.component}/{self.parent_sensor.parent_system.system_id}/{self.parent_sensor.sensor_id}_{self.parsed_value.field}"
-        self.uid = f"{self.parent_sensor.parent_system.system_id}_{self.parent_sensor.sensor_id}_{self.parsed_value.field}"
+        self.uid = f"{STATE_PREFIX}.{self.parent_sensor.parent_system.system_id}_{self.parent_sensor.sensor_id}_{self.parsed_value.field}"
         self.enabled = True
         parent_sensor.enabled = True
         parent_sensor.parent_system.enabled = True
@@ -165,6 +164,7 @@ class measurement():
                     "sw": VERSION
                 },
                 "unique_id": self.uid,
+                "default_entity_id": f"{self.component}.{self.uid}",
                 "enabled_by_default": f"{str(self.parsed_value.enabled)}",
                 "platform": self.component,
                 "qos": 2,
@@ -180,7 +180,7 @@ class measurement():
 
             # If it is a new measumente, announce it to hassio
             logging.debug(f"Announce measurement: {self.parsed_value.field}, {self.topic}")
-            self.parent_sensor.parent_system.parent_parser.transmit_callback(f"{self.topic}/config", json.dumps(config_payload), retain=False)
+            self.parent_sensor.parent_system.parent_parser.transmit_callback(f"{self.topic}/config", json.dumps(config_payload), retain=True)
 
     def get_value_template(self):
         match self.parsed_value.field_type:

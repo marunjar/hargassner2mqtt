@@ -54,7 +54,7 @@ class h2m_serial_parser():
             parsed_values.append(h2m_data("temperatur_kessel", values[4], "Temperatur Kessel", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
             parsed_values.append(h2m_data("temperatur_rauchgas", values[5], "Temperatur Rauchgas", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
             parsed_values.append(h2m_data("temperatur_aussen", values[6], "Temperatur Aussen", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
-            parsed_values.append(h2m_data("temperatur_aussen_mittel", values[7], "Temperatur Aussen Mittel", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement", enabled=False))
+            parsed_values.append(h2m_data("temperatur_aussen_mittel", values[7], "Temperatur Aussen Mittel", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
             parsed_values.append(h2m_data("temperatur_heizkreis_1", values[8], "Temperatur Heizkreis 1", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
             parsed_values.append(h2m_data("temperatur_heizkreis_2", values[9], "Temperatur Heizkreis 2", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
             parsed_values.append(h2m_data("temperatur_heizkreis_1_soll", values[10], "Temperatur Heizkreis 1 Soll", field_type=FieldType.FLOAT, unit="°C", device_clazz="temperature", state_clazz="measurement"))
