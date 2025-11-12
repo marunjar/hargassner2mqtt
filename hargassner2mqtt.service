@@ -7,7 +7,7 @@ ExecStart=/usr/bin/python3 /enter/path/to/hargassner2mqtt.py
 Type=simple
 User=root
 Restart=always
-RestartSec=30
+RestartSec=15
 
 [Install]
 WantedBy=multi-user.target
