@@ -1,0 +1,13 @@
+[Unit]
+Description=Hargassner to MQTT connector
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /enter/path/to/hargassner2mqtt.py
+Type=simple
+User=root
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
