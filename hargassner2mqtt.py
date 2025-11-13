@@ -198,6 +198,8 @@ while(True):
     tick = (tick + 1) % 10
 
     try:
+        # reset input buffer, hargassner is writing every 0.5s
+        serial_port.reset_input_buffer()
         serial_input = serial_port.readline().decode(encoding='ascii',errors='ignore').strip()
         parsed_serial_input, serial_data_valid = h2msp.parse(serial_input)
         voltage = chan0.voltage
