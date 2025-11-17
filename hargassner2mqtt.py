@@ -214,7 +214,7 @@ while(True):
                     h2m_data("last_seen", datetime.datetime.now(datetime.UTC).replace(microsecond=0).isoformat(), "Last Seen", category="diagnostic", icon="mdi:clock")
                 ]
                 h2m.send("HSV30", "Lambdatronic", data + parsed_serial_input + parsed_voltage)
-                time.sleep(16)
+                time.sleep(7)
     except Exception as e:
         logging.error(f"{e}")
     time.sleep(3)
