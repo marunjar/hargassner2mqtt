@@ -34,7 +34,7 @@ class h2m_helper():
             _, is_new_m = current_sensor.add_measurement(parsed_value)
 
         if is_new_s and current_sensor.enabled:
-            logging.info(f"Added sensor: {current_sensor.topic}")
+            logging.debug(f"Added sensor: {current_sensor.topic}")
 
         return (is_new_s | is_new_h | is_new_m), current_sensor
 

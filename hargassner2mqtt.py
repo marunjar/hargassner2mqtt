@@ -64,6 +64,8 @@ h2m = None
 h2msp = None
 h2mvp = None
 tick = 0
+last_serial_input = None
+last_voltage = 0
 
 loglevel = logging.INFO
 
@@ -195,6 +197,8 @@ h2mvp = h2m_voltage_parser(loglevel)
 while(True):
     if (tick == 0):
         h2m = h2m_helper(data_transmit, loglevel)
+        last_serial_input = None
+        last_voltage = None
     tick = (tick + 1) % 10
 
     try:
@@ -206,12 +210,17 @@ while(True):
         parsed_voltage, voltage_data_valid = h2mvp.parse(voltage)
         if not serial_data_valid or not voltage_data_valid:
             logging.warning(f"serial={serial_input}, serial_data_valid={serial_data_valid}, voltage={voltage}, voltage_data_valid={voltage_data_valid}")
+        elif serial_input == last_serial_input:
+            logging.debug(f"serial input unchanged")
         else:
             if client.is_connected():
+                last_serial_input = serial_input
+                last_voltage = voltage
                 data = [
                     h2m_data("raw_data_serial", serial_input, "Raw Serial Data", enabled=False, category="diagnostic"),
                     h2m_data("raw_data_voltage", voltage, "Raw Voltage Data", enabled=False, category="diagnostic", device_clazz="voltage", unit="V", field_type=FieldType.FLOAT),
                     h2m_data("last_seen", datetime.datetime.now(datetime.UTC).replace(microsecond=0).isoformat(), "Last Seen", category="diagnostic", icon="mdi:clock")
+                    h2m_data("last_seen", datetime.datetime.now(datetime.UTC).replace(microsecond=0).isoformat(), "Last Seen", category="diagnostic", icon="mdi:clock", device_clazz="timestamp")
                 ]
                 h2m.send("HSV30", "Lambdatronic", data + parsed_serial_input + parsed_voltage)
                 time.sleep(7)
