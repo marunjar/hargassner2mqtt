@@ -219,7 +219,6 @@ while(True):
                 data = [
                     h2m_data("raw_data_serial", serial_input, "Raw Serial Data", enabled=False, category="diagnostic"),
                     h2m_data("raw_data_voltage", voltage, "Raw Voltage Data", enabled=False, category="diagnostic", device_clazz="voltage", unit="V", field_type=FieldType.FLOAT),
-                    h2m_data("last_seen", datetime.datetime.now(datetime.UTC).replace(microsecond=0).isoformat(), "Last Seen", category="diagnostic", icon="mdi:clock")
                     h2m_data("last_seen", datetime.datetime.now(datetime.UTC).replace(microsecond=0).isoformat(), "Last Seen", category="diagnostic", icon="mdi:clock", device_clazz="timestamp")
                 ]
                 h2m.send("HSV30", "Lambdatronic", data + parsed_serial_input + parsed_voltage)
